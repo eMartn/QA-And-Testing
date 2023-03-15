@@ -1,0 +1,30 @@
+{
+  "vin": "ABC",
+  "make": "Genesis",
+  "model": "GV80",
+  "year": 2020,
+  "is4Wheel": true,
+  "retailPrice": 80000.0,
+  "mpg": 15.0,
+  "convertible": false
+}
+{
+  "vin": "XYZ",
+  "make": "Ford",
+  "model": "GT",
+  "year": 2020,
+  "is4Wheel": true,
+  "retailPrice": 100000.0,
+  "mpg": 5.0,
+  "convertible": true
+}
+{
+  "vin": "QWE",
+  "make": "Volvo",
+  "model": "Stationwagon",
+  "year": 2020,
+  "is4Wheel": true,
+  "retailPrice": 50000.0,
+  "mpg": 10.0,
+  "convertible": false
+}
