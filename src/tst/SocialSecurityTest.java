@@ -40,6 +40,9 @@ public class SocialSecurityTest
             driver.quit();
         }
 
+        /**
+         * Tests whether the estimated benefit amount is equal to the calculated monthly benefit amount.
+         */
         @Test
         @Parameters({"1,1,1990,55000,2044.0",
                      "1,1,1980,65000,2255.0",

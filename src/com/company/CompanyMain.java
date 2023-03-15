@@ -28,7 +28,6 @@ public class CompanyMain
     }
 
 
-
     public static void main(String[] args)  throws IOException
     {
         //small script to check if 'Fall Guys' is on sale
