@@ -1,26 +1,45 @@
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 //import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.List;
 
+/**
+ * Little program that showcases how to automatically retrieve links from web pages using selenium.
+ */
 public class HelloSelenium
     {
 
         private static WebDriver driver;
 
+        private static ChromeOptions options;
+
         @BeforeClass
-        public static void setUp()
+        public static void setupClass()
         {
-            System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-            //driver = new ChromeDriver();
-            driver = new FirefoxDriver();
+            WebDriverManager.chromedriver().setup();
+            options = new ChromeOptions();
+            options.addArguments("--remote-allow-origins=*");
+            options.addArguments("headless");
+        }
+
+        @Before
+        public void setupTest()
+        {
+            driver = new ChromeDriver(options);
+        }
+
+        @After
+        public void teardown()
+        {
+            driver.quit();
         }
 
         @Test

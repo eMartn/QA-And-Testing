@@ -1,8 +1,10 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.sql.*;
 import java.util.Date;
@@ -15,18 +17,28 @@ public class CarListingTest
         public static final String DB_CONNECTION_URL = "jdbc:sqlite:test.db";
         public static Connection connection;
         public static WebDriver driver;
+        private static ChromeOptions options;
 
         @BeforeClass
-        public static void setUp() throws SQLException {
-            System.setProperty("webdriver.chrome.driver","chromedriver.exe");
-            driver = new ChromeDriver();
+        public static void setupClass() throws SQLException
+        {
+            WebDriverManager.chromedriver().setup();
+            options = new ChromeOptions();
             connection = DriverManager.getConnection(DB_CONNECTION_URL);
+            options.addArguments("--remote-allow-origins=*");
+            options.addArguments("headless");
+        }
 
+        @Before
+        public void setupTest()
+        {
+            driver = new ChromeDriver(options);
         }
 
         @AfterClass
-        public static void cleanUp() throws SQLException {
-            driver.close();
+        public static void teardown() throws SQLException
+        {
+            driver.quit();
             connection.close();
         }
 
