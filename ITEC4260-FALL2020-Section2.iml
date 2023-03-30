@@ -49,5 +49,6 @@
     <orderEntry type="library" name="seleniumhq.selenium.support" level="project" />
     <orderEntry type="library" name="seleniumhq.selenium.chrome.driver" level="project" />
     <orderEntry type="library" name="io.github.bonigarcia.webdrivermanager" level="project" />
+    <orderEntry type="library" name="xerial.sqlite.jdbc" level="project" />
   </component>
 </module>

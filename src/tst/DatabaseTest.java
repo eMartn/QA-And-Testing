@@ -27,7 +27,6 @@ public class DatabaseTest
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, 100);
 
-
         }
 
         public int getNumOfRows() throws SQLException
