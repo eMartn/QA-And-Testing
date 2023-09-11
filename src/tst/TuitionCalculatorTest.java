@@ -5,9 +5,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+//import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.Select;
 
+
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class TuitionCalculatorTest
@@ -15,21 +19,32 @@ public class TuitionCalculatorTest
 
 
         private static WebDriver driver;
-        private static ChromeOptions options;
+        //private static ChromeOptions options;
+        private static FirefoxOptions options;
+
 
 
         @BeforeClass
         public static void setupClass()
         {
-            WebDriverManager.chromedriver().setup();
-            options = new ChromeOptions();
-            options.addArguments("--remote-allow-origins=*");
+            /*WebDriverManager automatically downloads the necessary driver if it is not on the local machine*/
+
+            //WebDriverManager.chromedriver().setup();
+            //options = new ChromeOptions();
+            //options.addArguments("--remote-allow-origins=*");
+
+            // FireFox
+            WebDriverManager.firefoxdriver().setup();
+            options = new FirefoxOptions();
+            options.addArguments("--headless");
         }
 
         @Before
         public void setupTest()
         {
-            driver = new ChromeDriver(options);
+            //driver = new ChromeDriver(options);
+            driver = new FirefoxDriver(options);
+
         }
 
         @After
@@ -63,7 +78,7 @@ public class TuitionCalculatorTest
 
             // Getting yearly in-state tuition from USNews
             driver.get(USNEWS_URL);
-            WebElement usCost = driver.findElement(By.cssSelector("#app > div:nth-child(3) > div.Content-sc-837ada-0.kkKJUL.content > div > div.Cell-sc-1abjmm4-0.idEUgs.mb0 > div > div > div:nth-child(10) > div:nth-child(1) > div:nth-child(2) > p.Paragraph-sc-1iyax29-0.kGlRjY"));
+            WebElement usCost = driver.findElement(By.cssSelector("div.Grid-lx2f3i-0:nth-child(10) > div:nth-child(1) > div:nth-child(2) > p:nth-child(2)"));
             String usCostString = usCost.getText();
             System.out.println(usCostString);
             double uCost = Double.parseDouble(usCostString.replace("$", "").replace(",", ""));
@@ -94,7 +109,7 @@ public class TuitionCalculatorTest
 
             // Getting yearly out-of-state tuition from USNews
             driver.get(USNEWS_URL);
-            WebElement usCost = driver.findElement(By.cssSelector("#app > div:nth-child(3) > div.Content-sc-837ada-0.kkKJUL.content > div > div.Cell-sc-1abjmm4-0.idEUgs.mb0 > div > div > div:nth-child(10) > div:nth-child(1) > div:nth-child(1) > p.Paragraph-sc-1iyax29-0.kGlRjY"));
+            WebElement usCost = driver.findElement(By.cssSelector("div.Grid-lx2f3i-0:nth-child(10) > div:nth-child(1) > div:nth-child(1) > p:nth-child(2)"));
             String usCostString = usCost.getText();
             System.out.println(usCostString);
             double uCost = Double.parseDouble(usCostString.replace("$", "").replace(",", ""));
@@ -113,7 +128,7 @@ public class TuitionCalculatorTest
             WebElement inOrOut = driver.findElement(By.cssSelector("#inorout1"));
             inOrOut.click();
             Select creditHours = new Select(driver.findElement(By.cssSelector("#creditHOURS")));
-            creditHours.selectByIndex(1);
+            creditHours.selectByIndex(8);
 
             // Getting semester in-state tuition from GGC tuition calculator
             WebElement totalCost = driver.findElement(By.cssSelector("#totalcost"));
@@ -133,22 +148,22 @@ public class TuitionCalculatorTest
             // This is where I would put my password, if I wanted to get hacked.
             passwordBox.sendKeys("");
             loginButton.click();
-            driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
 
             WebElement acButton = driver.findElement(By.cssSelector("body > div.pagebodydiv > table.menuplaintable > tbody > tr:nth-child(7) > td:nth-child(2) > a"));
             acButton.click();
-            driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
 
             WebElement termSumm = driver.findElement(By.cssSelector("body > div.pagebodydiv > div > table > tbody > tr > td > span > table > tbody > tr:nth-child(3) > td > font > table.menuplaintable > tbody > tr:nth-child(1) > td:nth-child(2) > a > font > b"));
             termSumm.click();
-            driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
 
             Select term = new Select(driver.findElement(By.cssSelector("#term_id")));
             term.selectByIndex(1);
 
             WebElement submitButton = driver.findElement(By.cssSelector("body > div.pagebodydiv > form > input[type=submit]"));
             submitButton.click();
-            driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
 
             WebElement fee;
             String totalFee;

@@ -14,8 +14,8 @@ public class DatabaseTest
         @BeforeClass
         public static void setUp() throws SQLException
         {
-
             connection = DriverManager.getConnection(dbURL);
+
         }
 
         @Test
@@ -28,6 +28,7 @@ public class DatabaseTest
             ps.setInt(1, 100);
 
         }
+
 
         public int getNumOfRows() throws SQLException
         {
